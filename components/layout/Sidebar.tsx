@@ -8,8 +8,6 @@ import {
   Layers,
   BarChart2,
   Settings,
-  PanelLeftClose,
-  PanelLeftOpen,
   ShieldCheck,
 } from "lucide-react";
 
@@ -100,33 +98,6 @@ function PanelBorder() {
 }
 
 // ─── SectionLabel ─────────────────────────────────────────────────────────────
-
-function SectionLabel({ children, visible }: { children: React.ReactNode; visible: boolean }) {
-  return (
-    <AnimatePresence initial={false}>
-      {visible && (
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.18 }}
-          className="block pb-1 select-none whitespace-nowrap"
-          style={{
-            fontFamily: "'Inter', system-ui, sans-serif",
-            fontSize: "9px",
-            fontWeight: 600,
-            letterSpacing: "0.22em",
-            textTransform: "uppercase",
-            color: "#2A2A2A",
-            paddingLeft: "20px",
-          }}
-        >
-          {children}
-        </motion.span>
-      )}
-    </AnimatePresence>
-  );
-}
 
 // ─── NavRow ───────────────────────────────────────────────────────────────────
 
@@ -496,12 +467,11 @@ export function Sidebar({
     else setInternalCollapsed(val);
   };
 
-  const ToggleIcon = isCollapsed ? PanelLeftOpen : PanelLeftClose;
-
   return (
     <motion.aside
       aria-label="Main navigation"
-      className="fixed flex flex-col overflow-hidden"
+      data-collapsed={isCollapsed}
+      className="peer fixed flex flex-col overflow-hidden"
       style={{
         top: NAVBAR_HEIGHT,
         left: 0,
